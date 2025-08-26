@@ -1,0 +1,151 @@
+{
+  "id": {
+    "nav_home": "Beranda", 
+    "nav_about": "Tentang",
+    "nav_product": "Produk",
+    "nav_buy": "Beli Maira",
+
+    "title-hero-index": "Macaron renyah pertama di Indonesia ini memiliki rasa yang unik dan lezat. Macaron renyah ini juga dikemas dalam kantong yang praktis dan mudah dibawa",
+    "judul-konten": "Apa itu Maira Cookies?",
+    "deskripsi-konten": "Maira Cookies & Cakes adalah perpaduan sempurna antara rasa lezat dan kemasan praktis. Maira Cookies adalah pilihan camilan sehat dan lezat untuk segala momen. Maira Cookies & Cakes tidak hanya menawarkan Macaron Renyah, tetapi juga Pampyron, Macana, dan kue kering.",
+
+    "judul-produk": "Produk Kami",
+    "produk-utama": "Produk Utama",
+    "produk-kue": "Produk Kue",
+    "lihat-produk": "Lihat Produk",
+    
+    "judul-form": "Bagikan kebahagiaanmu Disini!",
+    "sub-form": "Data anda akan kami jaga sebaik mungkin",
+    "form-nama": "Masukan nama lengkap anda disini",
+    "form-email": "Masukan email aktif anda disini",
+    "form-notelp": "Masukan nomor telepon anda disini",
+    "form-pesan": "Masukan pesan anda disini",
+    "tombol-kirim": "Kirim Pesan",
+
+    "cari-kami": "Cari Kami Disini",
+    "kontak-kami": "Hubungi Kami",
+
+
+   "milestone-2017": "Sejak tahun 2017, Maira Cookies & Cakes telah dengan antusias memanggang berbagai jenis kue dan kue kering tanpa nama dan label. Seiring berjalan nya waktu, kami telah mendapatkan lisensi dan sertifikasi yang diperlukan untuk menjamin kualitas dan integritas produk kami.",
+   "milestone-2021": "Dimulai dengan tim yang berdiri dari 14 orang yang berdedikasi. Dengan kapasitas produksi sebesar 6.887 pcs per bulan, kami berhasil menghasilkan total 82.646 pcs dalam setahun. Pada bulan Maret, produk kami mulai tersedia di Indomaret, diikuti oleh Alfamart. Lalu, pada bulan Juni untuk wilayah Bandung Raya.",
+   "milestone-2022": "Perusahaan kami berkembang pesat dengan meningkatnya jumlah karyawan menjadi 57 orang. kapasitas produksi kami mencapai 68.073 pcs per bulan, dengan total produksi sebanyak 816.871 pcs dalam setahun. Fasilitas produksi kami juga mengalami perluasan signifikan pada akhir tahun 2021. Produk kami semakin tersedia di cabang-cabang Indomaret di wilayah JABODETABEK, Lebak, Parung, dan Purwakarta.",
+   "milestone-award": "Pada awal tahun 2021, dengan bangga kami memperoleh sertifikasi PIRT (Pendaftaran Industri Rumah Tangga) dan sertifikasi Halal. Pada tahun berikutnya, yaitu tahun 2022, kami juga memperoleh Izin Edar Bersertifikasi dari Badan Pengawas Obat dan Makanan (BPOM). Sementara terus berinovasi, Maira Cookies & Cakes secara tak kenal lelah memperkenalkan produk-produk andalan yang menarik ke pasar.",
+   "milestone-2023": "Kami terus berkembang dengan kapasitas produksi sebesar 53.987 pcs per bulan dalam 6 bulan pertama, menghasilkan total produksi sebanyak 323.922 pcs. Kami juga berhasil melakukan ekspor produk ke Taiwan, membuka cabang-cabang Indomaret baru di wilayah Jawa Tengah, dan resmi mendapatkan perizinan BPOM. Sebagai tanggak penting, kami juga mengubah status legalitas perusahaan dari perorangan menjadi Perseroan Terbatas (PT).",
+
+   "judul-religius": "Religius",
+   "religius": "Mengedepankan nilai-nilai keimanan dalam setiap aspek bisnis.",
+   "judul-trust": "Percaya",
+   "trust": "Membangun kepercayaan dengan konsumen melalui kualitas dan integritas.",
+   "judul-pekerjakeras": "Pekerja Keras",
+   "pekerja-keras": "Komitmen untuk selalu memberikan yang terbaik dalam setiap produk.",
+   "judul-berkah": "Berkah",
+   "berkah": "Menghadirkan keberkahan dalam setiap produk untuk konsumen.",
+   "judul-jujur": "Jujur",
+   "jujur": "Transparansi dalam proses produksi dan kualitas bahan baku.",
+
+   "judul-misi1": "Kualitas terbaik",
+   "misi1": "Membuat produk PT. Well Maira Food dengan kualitas terbaik.",
+   "judul-misi2": "Pemasok Nasional",
+   "misi2": "Menjadi salah satu pemasok kue kering di seluruh Indonesia.",
+   "judul-misi3": "Promosi Efektif",
+   "misi3": "Meningkatkan promosi melalui media online maupun lainnya.",
+   "judul-misi4": "Daya Saing",
+   "misi4": "PT. Well Maira Food bersaing dengan produk lain yang sejenis.",
+   "judul-misi5": "Kualitas & Kuantitas",
+   "misi5": "Menjaga kualitas dan kuantitas sesuai tuntunan konsumen.",
+   "judul-misi6": "Ekspansi Produksi",
+   "misi6": "Memperluas tempat produksi untuk memenuhi kebutuhan pasar.",
+   "judul-misi7": "Pemberdayaan Masyarakat",
+   "misi7": "Meningkatkan taraf hidup penduduk lokal melalui peluang kerja dan kemitraan.",
+
+
+   "main-produk": "Maira Crispy - Produk Utama",
+   "crispy-macaron": "Dibuat dengan bahan-bahan dan cita rasa otentik yang sama dengan Macaron Prancis tradisional, perpaduan lembut tepung almond, putih telur, dan bahan-bahan premium lainnya. Dikemas elegan untuk kenyamanan Anda, menawarkan keseimbangan tekstur gurih, manis, dan renyah yang nikmat. Perpaduan sempurna antara anda, saya, dan kebahagiaan!",
+   "krispi-macana": "Macana atau Macaron Kacang Tanah. Dibuat dengan bahan-bahan dan cita rasa autentik yang sama dengan Macaron Prancis tradisional. Terbuat dari kacang tanah Indonesia, Macana menghadirkan cita rasa khas Indonesia yang gurih, manis, dan bertekstur renyah. Tersedia dalam kemasan satu porsi, sempurna untuk kenyamanan anda.",
+   "palm-can": "Pampyron adalah singkatan dari Palm Crispy Macaron. Dibuat dengan bahan-bahan dan cita rasa autentik yang sama dengan Macaron Prancis tradisional. Terbuat dari Gula Aren Indonesia, makaroni ini menghadirkan cita rasa khas Indonesia. Setiap macaron seukuran gigitan menawarkan keseimbangan rasa gurih yang nikmat dan rasa manis autentik dari Gula Aren Indonesia. Dikemas dengan aman untuk kenyamanan anda.",
+   "papyron": "Pampyron stands for Palm Crispy Macaron. Crafted with the same ingredients and authentic flavors as traditional French Macarons. Made with Indonesian Palm Sugar, it brings unique taste of Indonesia. Each bite-sized macaron offers a delightful balance of savory notes and authentic sweeetness from Indonesian Palm Sugar.",
+   "cakes-produk": "Maira Crispy - Produk Kue",
+   "cek-button1": "Cek Tokopedia",
+   "cek-button2": "Cek Shopee ",
+   "cek-button3": "Pre-order disini",
+
+
+   "dimana-beli": "Dimana beli produknya?",
+   "footer_text": "© 2025 Well Maira Food."
+
+  },
+
+  "en": {
+    "nav_home": "Home",
+    "nav_about": "About",
+    "nav_product": "Product",
+    "nav_buy": "Buy Maira",
+
+    "title-hero-index": "The first Crispy Macaron in Indonesia, has a unique and delicious taste. Crispy Macaron is also packaged in a pouch which is practical and easy to carry",
+    "judul-konten": "What is Maira Cookies?",
+    "deskripsi-konten": "Maira Cookies & Cakes are the perfect combination of delicious taste and practical packaging. Maira Cookies are a healthy and delicious snack choice for all Moment. Maira Cookies & Cakes is not only Crispy Macaron but also Pampyron, Macana and dry cakes.",
+
+    "judul-produk": "Our Products",
+    "produk-utama": "Main Product",
+    "produk-kue": "Cakes Product",
+    "lihat-produk": "View Product",
+    
+    "judul-form": "Be Our Part to Share Happiness",
+    "sub-form": "We will protect your data as best as possible",
+    "form-nama": "Input your full name here",
+    "form-email": "Input your active email here",
+    "form-notelp": "Input your phone number here",
+    "form-pesan": "Input your message here",
+    "tombol-kirim": "Submit",
+
+    "cari-kami": "Find Us On",
+    "kontak-kami": "Contact Us",
+
+
+   "milestone-2017": "Since 2017, Maira Cookies & Cakes has been enthusiastically baking a variety of unbranded cakes and pastries. Over time, we have obtained the necessary licenses and certifications to guarantee the quality and integrity of our products.",
+   "milestone-2021": "Starting with a dedicated team of 14 people, we produced a total of 82,646 units per month. In March, our products were available at Indomaret, followed by Alfamart. Then, in June, we expanded to the Bandung area.",
+   "milestone-2022": "Our company is growing rapidly, with the number of employees increasing to 57. Our production capacity has reached 68,073 units per month, with a total annual production of 816,871 units. Our production facilities also underwent a significant expansion at the end of 2021. Our products are increasingly available at Indomaret branches in the Greater Jakarta area, Lebak, Parung, and Purwakarta.",
+   "milestone-award": "In early 2021, we proudly obtained PIRT (Home Industry Registration) and Halal certification. The following year, in 2022, we also obtained a Certified Distribution Permit from the Food and Drug Monitoring Agency (BPOM). While continuing to innovate, Maira Cookies & Cakes tirelessly introduces exciting flagship products to the market.",
+   "milestone-2023": "We continued to grow, with a production capacity of 53,987 units per month in the first six months, resulting in a total production of 323,922 units. We also successfully exported products to Taiwan, opened new Indomaret branches in Central Java, and officially obtained BPOM permits. As a significant milestone, we also changed our company's legal status from a sole proprietorship to a Limited Liability Company (PT).",
+
+   "judul-religius": "religious",
+   "religius": "Prioritizing the values of faith in every aspect of business.",
+   "judul-trust": "Trust",
+   "trust": "Building trust with consumers through quality and integrity.",
+   "judul-pekerjakeras": "Hard Worker",
+   "pekerja-keras": "Commitment to always provide the best in every product.",
+   "judul-berkah": "blessing",
+   "berkah": "Bringing blessings in every product to consumers.",
+   "judul-jujur": "Honest",
+   "jujur": "Transparency in production processes and quality of raw materials.",
+
+   "judul-misi1": "Best Quality",
+   "misi1": "Producing PT. Well Maira Food products with the best quality.",
+   "judul-misi2": "National Supplier",
+   "misi2": "To become one of the suppliers of dry cakes throughout Indonesia.",
+   "judul-misi3": "Effective Promotion",
+   "misi3": "Increase promotion through online and other media.",
+   "judul-misi4": "Competitiveness",
+   "misi4": "PT. Well Maira Food competes with other similar products.",
+   "judul-misi5": "Quality & Quantity",
+   "misi5": "Maintain quality and quantity according to consumer demands.",
+   "judul-misi6": "Production Expansion",
+   "misi6": "Expanding production facilities to meet market needs.",
+   "judul-misi7": "Community Empowerment",
+   "misi7": "Improving the standard of living of local residents through employment opportunities and partnerships.",
+
+
+   "main-produk": "Maira Crispy - Main Product",
+   "crispy-macaron": "Crafted with the same ingredients and aunthentic flavors of traditional French Macarons, a delicate blend of almond flour, egg whites, and other premium components. Elegantly packaged for your convenience, offering a delightful balance of savory, sweet and crisp texture. A perfect blend of you, me, and happiness!",
+   "krispi-macana": "Macana or Macaron Kacang Tanah. Crafted with the same ingredients and authentic flavors as traditional French Macarons. Made with Indonesian Peanuts, it brings unique taste of Indonesia thats savory, sweet with crisp texture. Available in a single serving package, perfect for your convenience.",
+   "palm-can": "Pampyron stands for Palm Crispy Macaron. Crafted with the same ingredients and authentic flavors as traditional French Macarons. Made with Indonesian Palm Sugar, it brings unique taste of Indonesia. Each bite-sized macaron offers a delightful balance of savory notes and authentic sweeetness from Indonesian Palm Sugar. Safely packaged for your convenience.",
+   "papyron": "Pampyron stands for Palm Crispy Macaron. Crafted with the same ingredients and authentic flavors as traditional French Macarons. Made with Indonesian Palm Sugar, it brings unique taste of Indonesia. Each bite-sized macaron offers a delightful balance of savory notes and authentic sweeetness from Indonesian Palm Sugar.",
+   "cakes-produk": "Maira Crispy - Cakes Product",
+   "cek-button1": "Check Tokopedia",
+   "cek-button2": "Check Shopee ",
+   "cek-button3": "Pre-order here",
+
+    "dimana-beli": "Where to Buy Maira?",
+    "footer_text": "© 2025 Well Maira Food."
+  }
+}
