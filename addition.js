@@ -59,7 +59,7 @@
             this.style.animationPlayState = 'running';
             });
             }
-        });
+    });
 
         // Disable klik kanan hanya pada gambar
         document.addEventListener("contextmenu", function(e) {

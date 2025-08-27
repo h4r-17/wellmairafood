@@ -63,7 +63,7 @@
    "crispy-macaron": "Dibuat dengan bahan-bahan dan cita rasa otentik yang sama dengan Macaron Prancis tradisional, perpaduan lembut tepung almond, putih telur, dan bahan-bahan premium lainnya. Dikemas elegan untuk kenyamanan Anda, menawarkan keseimbangan tekstur gurih, manis, dan renyah yang nikmat. Perpaduan sempurna antara anda, saya, dan kebahagiaan!",
    "krispi-macana": "Macana atau Macaron Kacang Tanah. Dibuat dengan bahan-bahan dan cita rasa autentik yang sama dengan Macaron Prancis tradisional. Terbuat dari kacang tanah Indonesia, Macana menghadirkan cita rasa khas Indonesia yang gurih, manis, dan bertekstur renyah. Tersedia dalam kemasan satu porsi, sempurna untuk kenyamanan anda.",
    "palm-can": "Pampyron adalah singkatan dari Palm Crispy Macaron. Dibuat dengan bahan-bahan dan cita rasa autentik yang sama dengan Macaron Prancis tradisional. Terbuat dari Gula Aren Indonesia, makaroni ini menghadirkan cita rasa khas Indonesia. Setiap macaron seukuran gigitan menawarkan keseimbangan rasa gurih yang nikmat dan rasa manis autentik dari Gula Aren Indonesia. Dikemas dengan aman untuk kenyamanan anda.",
-   "papyron": "Pampyron stands for Palm Crispy Macaron. Crafted with the same ingredients and authentic flavors as traditional French Macarons. Made with Indonesian Palm Sugar, it brings unique taste of Indonesia. Each bite-sized macaron offers a delightful balance of savory notes and authentic sweeetness from Indonesian Palm Sugar.",
+   "pampyron": "Pampyron adalah singkatan dari Palm Crispy Macaron. Dibuat dengan bahan-bahan dan cita rasa autentik yang sama dengan Macaron Prancis tradisional. Terbuat dari Gula Aren Indonesia, makaroni ini menghadirkan cita rasa khas Indonesia. Setiap macaron seukuran gigitan menawarkan keseimbangan rasa gurih yang nikmat dan rasa manis autentik dari Gula Aren Indonesia.",
    "cakes-produk": "Maira Crispy - Produk Kue",
    "cek-button1": "Cek Tokopedia",
    "cek-button2": "Cek Shopee ",
@@ -76,6 +76,13 @@
    "peanut": "Terbuat dari kacang tanah panggang pilihan dan dipanggang hingga keemasan sempurna. Renyah, manis, dan gurih. Kue kering abadi yang selalu hadir di meja makan saat perayaan. Benar-benar klasik.",
    "sagukeju": "Terbuat dari tepung sagu Indonesia dan dicampur dengan keju, kue kering ini ringan, renyah, dan sedikit gurih, dengan tekstur lembut sagu yang unik. Sebuah suguhan lezat, sempurna untuk momen spesial anda.",
 
+    "order": "Tambah Ke Keranjang",
+    "cart_title": "Keranjang Pre-Order",
+    "cart_name_placeholder": "Nama Lengkap",
+    "cart_address_placeholder": "Alamat Lengkap",
+    "cart_submit": "Kirim Pesanan",
+    "cart_close": "Tutup",
+    "whatsapp_message": "Halo, saya ingin memesan produk berikut:",
 
    "dimana-beli": "Dimana beli produknya?",
    "footer_text": "© 2025 Well Maira Food."
@@ -159,7 +166,15 @@
    "peanut": "Made with selected roasted peanuts and baked to golden perfection. Crunchy, sweet and savory. A timeless cookies that always makes it’s way to the table during celebrations. A true classic.",
    "sagukeju": "Made with Indonesian sago flour and blended with cheese, these cookies are light, crispy, and slightly savory, with a uniquely soft texture from the sago. A delightful treat, perfect for your special moments.",
 
-    "dimana-beli": "Where to Buy Maira?",
-    "footer_text": "© 2025 Well Maira Food."
+   "order": "Add To Cart",
+   "cart_title": "Pre-Order Cart",
+   "cart_name_placeholder": "Full Name",
+   "cart_address_placeholder": "Full Address",
+   "cart_submit": "Send Order",
+   "cart_close": "Close",
+   "whatsapp_message": "Hello, I would like to order the following products:",
+
+   "dimana-beli": "Where to Buy Maira?",
+   "footer_text": "© 2025 Well Maira Food."
   }
 }

@@ -70,14 +70,14 @@
   margin-top: 15px;
   padding: 10px 20px;
   border: none;
-  background: #007BFF;
+  background: var(--secondary-color);
   color: white;
   border-radius: 6px;
   cursor: pointer;
 }
 
 .popup-box button:hover {
-  background: #0056b3;
+  background: var(--hover-color);
 }
 
 
@@ -856,7 +856,12 @@ body::-webkit-scrollbar {
         word-wrap: break-word;
         overflow-wrap: break-word;
     }
-    
+
+    .about-content h2,
+    .container h2 {
+        font-size: 2.3rem;
+    }
+
     .features {
         grid-template-columns: 1fr;
     }
@@ -1607,6 +1612,200 @@ ul li i {
     font-size: 0.85rem;
   }
 }
+
+/* keranjang produk cakes */
+
+/* Popup dasar */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.popup-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Popup keranjang */
+.cart-popup-box {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 95%;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.4s ease-in-out;
+}
+
+.cart-popup-box.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cart-popup-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-light);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+  resize: none;
+}
+
+.cart-item span {
+  flex: 1;
+  font-weight: 600;
+}
+
+/* keranjang scroll */
+#cartItems {
+  overflow-y: auto;
+  padding-right: 5px;
+  margin-bottom: 15px;
+  transition: max-height 0.3s ease;
+}
+
+#cartItems::-webkit-scrollbar {
+  width: 6px;
+}
+#cartItems::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 4px;
+}
+#cartItems::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* responsif keranjang scroll */
+
+@media (max-width: 600px) {
+  #cartItems {
+    max-height: 200px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  #cartItems {
+    max-height: 250px !important;
+  }
+}
+
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.quantity-controls button {
+  padding: 5px 10px;
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.quantity-controls button:hover {
+  background: var(--hover-color);
+}
+
+.quantity-controls input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.remove-btn {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background: #d32f2f;
+}
+
+#cartForm input, 
+#cartForm textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+#cartForm .submit-btn {
+  background: var(--secondary-color);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#cartForm .submit-btn:hover {
+  background: var(--hover-color);
+}
+
+/* Popup sukses */
+.popup-box.success {
+  border-top: 6px solid #4CAF50;
+  padding: 20px;
+  background: #fff;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+/* Responsif */
+@media (max-width: 1024px) {
+  .cart-popup-box {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .cart-popup-box {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quantity-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
 
 
 
