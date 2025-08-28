@@ -289,6 +289,7 @@
         <div id="cartItems"></div>
         <form id="cartForm" class="form-group">
             <input type="text" id="nama" name="nama" data-i18n-placeholder="cart_name_placeholder" placeholder="Nama Lengkap" minlength="3" required>
+            <input type="text" id="userPhone" name="userPhone" data-i18n-placeholder="cart_phone_placeholder" placeholder="Nomor Telepon" minlength="10" maxlength="12" required>
             <textarea id="alamat" name="alamat" data-i18n-placeholder="cart_address_placeholder" placeholder="Alamat Lengkap" rows="3" minlength="5" style="resize: none;"></textarea>
             <button type="submit" class="submit-btn" data-i18n="cart_submit">Kirim Pesanan</button>
             <button type="button" id="closeCart" class="submit-btn" style="background:#f44336; margin-top:10px;" data-i18n="cart_close">Tutup</button>
@@ -435,7 +436,7 @@
   });
 
   // Kirim ke WhatsApp
- cartForm.addEventListener("submit", async (e) => {
+cartForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const lang = localStorage.getItem("lang") || "id";
   const translations = await loadTranslations();
@@ -446,29 +447,52 @@
   }
 
   const nama = document.getElementById("nama").value.trim();
+  const userPhone = document.getElementById("userPhone").value.trim(); // nomor telepon pengguna
   const alamat = document.getElementById("alamat").value.trim();
-  const phoneNumber = "6281122332222";
+  const shopNumber = "6281122332222"; // nomor WhatsApp toko
 
   // Daftar produk
   const productList = cart.map(item => `* ${item.name}: ${item.qty}`).join("\n");
 
-  // Format pesan sesuai bahasa
+  // === Kirim ke Spreadsheet ===
+  const formData = new FormData();
+  formData.append("Nama", nama);
+  formData.append("Alamat", alamat);
+  formData.append("Telepon", userPhone); // simpan nomor telepon user
+  formData.append("Produk", productList);
+
+  fetch("https://script.google.com/macros/s/AKfycbyAEo_Jum3NkJpAruYXUOo7oBB5RjBVKs21-1A10rLcmksQnRvffTSYt5eZX0SsZcHezQ/exec", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.result === "success") {
+      console.log("Data tersimpan di baris:", data.row);
+    } else {
+      console.error("Gagal simpan:", data.error);
+      alert("Terjadi kesalahan: " + data.error);
+    }
+  })
+  .catch(error => {
+    console.error("Spreadsheet error:", error);
+    alert("Gagal mengirim ke Spreadsheet: " + error);
+  });
+
+  // === Kirim ke WhatsApp (tanpa nomor telepon user) ===
   const message = lang === "id"
     ? `Halo, saya ingin memesan produk berikut:\n\n${productList}\n\nNama: ${nama}\nAlamat: ${alamat}`
     : `Hello, I would like to order the following products:\n\n${productList}\n\nName: ${nama}\nAddress: ${alamat}`;
 
-  // Deteksi platform
   const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
   const encodedMessage = encodeURIComponent(message);
-
   const waLink = isMobile
-    ? `https://wa.me/${phoneNumber}?text=${encodedMessage}`
-    : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+    ? `https://wa.me/${shopNumber}?text=${encodedMessage}`
+    : `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
 
-  // Buka WhatsApp
   window.open(waLink, "_blank");
 
-  // Reset keranjang & form
+  // Reset keranjang dan form
   cartPopup.querySelector(".cart-popup-box").classList.remove("show");
   setTimeout(() => {
     cartPopup.classList.remove("show");
@@ -476,7 +500,7 @@
   cart = [];
   updateCartUI();
   cartForm.reset();
-  });
+});
 });
 
 </script>
