@@ -489,17 +489,30 @@ cartForm.addEventListener("submit", async (e) => {
   let waLink = "";
 
   if (/iPhone|iPad|iPod/i.test(userAgent)) {
+    // iPhone/iPad → pakai location.href agar tidak diblokir
     waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
-  } else if (/Macintosh/i.test(userAgent)) {
-    waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
-  } else if (/Android/i.test(userAgent)) {
-    waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
-  } else {
-    waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
-  }
+    window.location.href = waLink;
 
-  // Buka di tab/jendela baru
-  window.open(waLink, "_blank");
+    // Fallback jika tidak terbuka dalam 2 detik
+    setTimeout(() => {
+      window.location.href = `https://api.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
+    }, 2000);
+
+  } else if (/Macintosh/i.test(userAgent)) {
+    // MacBook → buka WhatsApp Web di tab baru
+    waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
+    window.open(waLink, "_blank");
+
+  } else if (/Android/i.test(userAgent)) {
+    // Android → buka WhatsApp App di tab baru
+    waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
+    window.open(waLink, "_blank");
+
+  } else {
+    // Default → buka WhatsApp Web di tab baru
+    waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
+    window.open(waLink, "_blank");
+  }
 
   // Reset keranjang dan form
   cartPopup.querySelector(".cart-popup-box").classList.remove("show");
