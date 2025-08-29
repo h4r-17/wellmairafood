@@ -83,17 +83,21 @@
         msg.textContent = message;
         box.className = "popup-box " + (isError ? "error" : "success");
 
-        overlay.style.display = "flex";
-        setTimeout(() => box.classList.add("show"), 50);
+        overlay.classList.add("show"); // tampilkan overlay
+        setTimeout(() => {
+        box.classList.add("show");   // animasi pop-up
+          }, 50);
         }
 
         function closePopup() {
         const overlay = document.getElementById("popup-overlay");
         const box = document.getElementById("popup-box");
-        box.classList.remove("show");
-        setTimeout(() => overlay.style.display = "none", 300);
-        }
 
+        box.classList.remove("show");
+        setTimeout(() => {
+        overlay.classList.remove("show");
+          }, 300);
+      }
         document.getElementById("contact-form").addEventListener("submit", function(e) {
         e.preventDefault();
 
