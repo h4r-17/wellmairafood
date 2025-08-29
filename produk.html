@@ -447,7 +447,7 @@ cartForm.addEventListener("submit", async (e) => {
   }
 
   const nama = document.getElementById("nama").value.trim();
-  const userPhone = document.getElementById("userPhone").value.trim(); // nomor telepon pengguna
+  const userPhone = document.getElementById("userPhone").value.trim();
   const alamat = document.getElementById("alamat").value.trim();
   const shopNumber = "6281122332222"; // nomor WhatsApp toko
 
@@ -458,7 +458,7 @@ cartForm.addEventListener("submit", async (e) => {
   const formData = new FormData();
   formData.append("Nama", nama);
   formData.append("Alamat", alamat);
-  formData.append("Telepon", userPhone); // simpan nomor telepon user
+  formData.append("Telepon", userPhone);
   formData.append("Produk", productList);
 
   fetch("https://script.google.com/macros/s/AKfycbyAEo_Jum3NkJpAruYXUOo7oBB5RjBVKs21-1A10rLcmksQnRvffTSYt5eZX0SsZcHezQ/exec", {
@@ -479,17 +479,26 @@ cartForm.addEventListener("submit", async (e) => {
     alert("Gagal mengirim ke Spreadsheet: " + error);
   });
 
-  // === Kirim ke WhatsApp (tanpa nomor telepon user) ===
+  // === Kirim ke WhatsApp ===
   const message = lang === "id"
     ? `Halo, saya ingin memesan produk berikut:\n\n${productList}\n\nNama: ${nama}\nAlamat: ${alamat}`
     : `Hello, I would like to order the following products:\n\n${productList}\n\nName: ${nama}\nAddress: ${alamat}`;
 
-  const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
   const encodedMessage = encodeURIComponent(message);
-  const waLink = isMobile
-    ? `https://wa.me/${shopNumber}?text=${encodedMessage}`
-    : `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  let waLink = "";
 
+  if (/iPhone|iPad|iPod/i.test(userAgent)) {
+    waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
+  } else if (/Macintosh/i.test(userAgent)) {
+    waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
+  } else if (/Android/i.test(userAgent)) {
+    waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
+  } else {
+    waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
+  }
+
+  // Buka di tab/jendela baru
   window.open(waLink, "_blank");
 
   // Reset keranjang dan form
