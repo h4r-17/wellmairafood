@@ -455,25 +455,20 @@ cartForm.addEventListener("submit", async (e) => {
   const productList = cart.map(item => `* ${item.name}: ${item.qty}`).join("\n");
 
   // === Kirim ke Spreadsheet ===
-  const formData = new FormData();
-  formData.append("Nama", nama);
-  formData.append("Alamat", alamat);
-  formData.append("Telepon", userPhone);
-  formData.append("Produk", productList);
+  const params = new URLSearchParams();
+params.append("Nama", nama);
+params.append("Alamat", alamat);
+params.append("Telepon", userPhone);
+params.append("Produk", productList);
 
-  fetch("https://script.google.com/macros/s/AKfycbyAEo_Jum3NkJpAruYXUOo7oBB5RjBVKs21-1A10rLcmksQnRvffTSYt5eZX0SsZcHezQ/exec", {
-    method: "POST",
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.result === "success") {
-      console.log("Data tersimpan di baris:", data.row);
-    } else {
-      console.error("Gagal simpan:", data.error);
-      alert("Terjadi kesalahan: " + data.error);
-    }
-  })
+fetch("https://script.google.com/macros/s/AKfycbyAEo_Jum3NkJpAruYXUOo7oBB5RjBVKs21-1A10rLcmksQnRvffTSYt5eZX0SsZcHezQ/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+  },
+  body: params.toString()
+})
+
   .catch(error => {
     console.error("Spreadsheet error:", error);
     alert("Gagal mengirim ke Spreadsheet: " + error);
