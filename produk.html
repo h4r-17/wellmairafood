@@ -345,7 +345,6 @@
     });
 
     // pop up pre-order
-
     document.addEventListener("DOMContentLoaded", () => {
   const cartPopup = document.getElementById("cartPopup");
   const cartItemsContainer = document.getElementById("cartItems");
@@ -493,7 +492,10 @@ cartForm.addEventListener("submit", async (e) => {
     waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
     window.location.href = waLink;
 
-    
+    // Fallback jika tidak terbuka dalam 2 detik
+    setTimeout(() => {
+      window.location.href = `https://api.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
+    }, 2000);
 
   } else if (/Macintosh/i.test(userAgent)) {
     // MacBook → buka WhatsApp Web di tab baru
@@ -521,7 +523,6 @@ cartForm.addEventListener("submit", async (e) => {
   cartForm.reset();
 });
 });
-
 </script>
 </body>
 </html>
