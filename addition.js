@@ -73,23 +73,27 @@
         img.setAttribute("draggable", "false");
         });
 
+    // tambahan untuk pop-up form
+async function showPopup(messageKey, isError = false) {
+  const translations = await loadTranslations();
+  const currentLang = localStorage.getItem("lang") || "id";
 
-        // API ke spreadsheet
-        function showPopup(message, isError = false) {
-        const overlay = document.getElementById("popup-overlay");
-        const box = document.getElementById("popup-box");
-        const msg = document.getElementById("popup-message");
+  const overlay = document.getElementById("popup-overlay");
+  const box = document.getElementById("popup-box");
+  const msg = document.getElementById("popup-message");
 
-        msg.textContent = message;
-        box.className = "popup-box " + (isError ? "error" : "success");
+  // ambil teks dari lang.json
+  msg.textContent = translations[currentLang][messageKey] || messageKey;
 
-        overlay.classList.add("show"); // tampilkan overlay
-        setTimeout(() => {
-        box.classList.add("show");   // animasi pop-up
-          }, 50);
-        }
+  box.className = "popup-box " + (isError ? "error" : "success");
 
-        function closePopup() {
+  overlay.classList.add("show");
+  setTimeout(() => {
+    box.classList.add("show");
+  }, 50);
+}
+
+    function closePopup() {
         const overlay = document.getElementById("popup-overlay");
         const box = document.getElementById("popup-box");
 
@@ -98,26 +102,46 @@
         overlay.classList.remove("show");
           }, 300);
       }
-        document.getElementById("contact-form").addEventListener("submit", function(e) {
-        e.preventDefault();
+   // Helper: tampil/sembunyi loading
+function showLoading(){
+  const overlay = document.getElementById("loading-overlay");
+  overlay.classList.add("show");
+}
+function hideLoading(){
+  document.getElementById("loading-overlay").classList.remove("show");
+}
 
-        const form = this;
-        const formData = new FormData(form);
 
-        fetch("https://script.google.com/macros/s/AKfycbxoQnhFFSs79ROmE8ZKWJJTEWle4Igr2GYwBfv8cIAPFVOkAMLRSLuhYARWCaCydPU/exec", {
-        method: "POST",
-        body: formData
-        })
-        .then(res => res.text())
-        .then(data => {
-        showPopup("Thank you for submit ✅", false);
-        form.reset();
-        })
-        .catch(err => {
-        showPopup("Failed. Please try again ❌", true);
-        });
-        });
+  // Handler submit (versi baru)
+  document.getElementById("contact-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const formData = new FormData(form);
 
+  showLoading();
+
+  try {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxoQnhFFSs79ROmE8ZKWJJTEWle4Igr2GYwBfv8cIAPFVOkAMLRSLuhYARWCaCydPU/exec", {
+      method: "POST",
+      body: formData
+    });
+
+    hideLoading();
+
+    if (!res.ok) {
+      showPopup("error", true);
+      return;
+    }
+
+    await res.text(); // biar tetap baca responsenya
+    showPopup("success", false);
+    form.reset();
+  } catch (err) {
+    hideLoading();
+    showPopup("error", true);
+    console.error(err);
+  }
+});
 
 
 

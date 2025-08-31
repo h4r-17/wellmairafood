@@ -22,6 +22,10 @@
     "form-pesan": "Masukan pesan anda disini",
     "tombol-kirim": "Kirim Pesan",
 
+    "loading": "Mohon Tunggu Sebentar",
+    "success": "Terimakasih ya! ✅",
+    "error": "Waduh gagal. Silakan coba lagi! ❌",
+
     "cari-kami": "Cari Kami Disini",
     "kontak-kami": "Hubungi Kami",
 
@@ -112,6 +116,10 @@
     "form-notelp": "Input your phone number here",
     "form-pesan": "Input your message here",
     "tombol-kirim": "Submit",
+
+    "loading": "Please Wait",
+    "success": "Thank you. Have a nice day! ✅",
+    "error": "Sorry. Please try again! ❌",
 
     "cari-kami": "Find Us On",
     "kontak-kami": "Contact Us",
