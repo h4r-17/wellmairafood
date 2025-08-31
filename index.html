@@ -257,15 +257,6 @@
     setLanguage(savedLang);
     });
 
-    // tambahan untuk pop-up form
-    function showPopup(message, isError = false) {
-        const overlay = document.getElementById("popup-overlay");
-        const box = document.getElementById("popup-box");
-        const msg = document.getElementById("popup-message");
-
-        msg.textContent = message;
-        box.className = "popup-box " + (isError ? "error" : "success");
-    }
     </script>
 </body>
 </html>

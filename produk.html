@@ -289,7 +289,7 @@
         <div id="cartItems"></div>
         <form id="cartForm" class="form-group">
             <input type="text" id="nama" name="nama" data-i18n-placeholder="cart_name_placeholder" placeholder="Nama Lengkap" minlength="3" required>
-            <input type="text" id="userPhone" name="userPhone" data-i18n-placeholder="cart_phone_placeholder" placeholder="Nomor Telepon" minlength="10" maxlength="12" required>
+            <input type="text" id="userPhone" name="userPhone" data-i18n-placeholder="cart_phone_placeholder" placeholder="Nomor Telepon" minlength="10" maxlength="13" pattern="[0-9]*" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
             <textarea id="alamat" name="alamat" data-i18n-placeholder="cart_address_placeholder" placeholder="Alamat Lengkap" rows="3" minlength="5" style="resize: none;"></textarea>
             <button type="submit" class="submit-btn" data-i18n="cart_submit">Kirim Pesanan</button>
             <button type="button" id="closeCart" class="submit-btn" style="background:#f44336; margin-top:10px;" data-i18n="cart_close">Tutup</button>
@@ -352,33 +352,63 @@
   const cartForm = document.getElementById("cartForm");
   let cart = [];
 
-  function updateCartUI() {
-    const cartItemsWrapper = document.getElementById("cartItems");
+ function updateCartUI() {
+  const cartItemsWrapper = document.getElementById("cartItems");
 
-    if (cart.length === 0) {
-      cartItemsWrapper.innerHTML = "<p style='text-align:center; color:#777;'>Keranjang kosong.</p>";
-      cartItemsWrapper.style.maxHeight = "none";
-      return;
-    }
-
-    // Render produk ke dalam keranjang
-    cartItemsWrapper.innerHTML = cart
-      .map((item, index) => `
-        <div class="cart-item">
-          <span>${item.name}</span>
-          <div class="quantity-controls">
-            <button onclick="decreaseQty(${index})">-</button>
-            <input type="number" value="${item.qty}" min="1" onchange="updateQty(${index}, this.value)">
-            <button onclick="increaseQty(${index})">+</button>
-          </div>
-          <button class="remove-btn" onclick="removeItem(${index})">Hapus</button>
-        </div>
-      `)
-      .join("");
-
-    // Aktifkan scroll jika produk > 4
-    cartItemsWrapper.style.maxHeight = cart.length > 4 ? "300px" : "none";
+  if (cart.length === 0) {
+    cartItemsWrapper.innerHTML = "<p style='text-align:center; color:#777;'>Keranjang kosong.</p>";
+    cartItemsWrapper.style.maxHeight = "none";
+    return;
   }
+
+  // Render produk ke dalam keranjang
+  cartItemsWrapper.innerHTML = cart
+    .map((item, index) => `
+      <div class="cart-item">
+        <span>${item.name}</span>
+        <div class="quantity-controls">
+          <button onclick="decreaseQty(${index})">-</button>
+          <input 
+            type="number"
+            value="${item.qty}"
+            min="1"
+            step="1"
+            maxlength="4"
+            pattern="[0-9]*"
+            oninput="validateQty(this, ${index})"
+          >
+          <button onclick="increaseQty(${index})">+</button>
+        </div>
+        <button class="remove-btn" onclick="removeItem(${index})">Hapus</button>
+      </div>
+    `)
+    .join("");
+
+  // Aktifkan scroll jika produk > 4
+  cartItemsWrapper.style.maxHeight = cart.length > 4 ? "300px" : "none";
+}
+
+// Fungsi validasi untuk input qty
+window.validateQty = function(input, index) {
+  // Hapus semua karakter non-angka
+  input.value = input.value.replace(/[^0-9]/g, '');
+
+    // Jika kosong, nol, atau bukan angka, set ke 1
+  if (!qty || qty < 1) {
+    qty = 1;
+  }
+
+  // Batasi maksimum 4 digit
+  if (input.value.length > 4) {
+    input.value = input.value.slice(0, 4);
+  }
+
+  let qty = parseInt(input.value);
+
+  // Update input dan array cart
+  input.value = qty;
+  cart[index].qty = qty;
+};
 
   // Tombol tambah produk
   document.querySelectorAll(".add-to-cart").forEach(btn => {
@@ -448,12 +478,9 @@ cartForm.addEventListener("submit", async (e) => {
   const nama = document.getElementById("nama").value.trim();
   const userPhone = document.getElementById("userPhone").value.trim();
   const alamat = document.getElementById("alamat").value.trim();
-  const shopNumber = "6281122332222"; // nomor WhatsApp toko
+  const shopNumber = "6281122332222"; // Nomor WhatsApp toko
 
-  // Daftar produk
   const productList = cart.map(item => `* ${item.name}: ${item.qty}`).join("\n");
-
-  // === Pesan WhatsApp ===
   const message = lang === "id"
     ? `Halo, saya ingin memesan produk berikut:\n\n${productList}\n\nNama: ${nama}\nAlamat: ${alamat}`
     : `Hello, I would like to order the following products:\n\n${productList}\n\nName: ${nama}\nAddress: ${alamat}`;
@@ -462,67 +489,42 @@ cartForm.addEventListener("submit", async (e) => {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   let waLink = "";
 
-  // --- Pemicu Navigasi WhatsApp Pertama (Paling Penting untuk iOS) ---
-  // Ini harus dipicu sesegera mungkin setelah event submit
+  // === WA navigation ===
   if (/iPhone|iPad|iPod/i.test(userAgent)) {
-    // Untuk iOS, gunakan window.location.href untuk membuka aplikasi WhatsApp
-    // Ini adalah cara paling andal untuk memicu pembukaan aplikasi dari event listener langsung.
     waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
-    window.location.href = waLink;
-
-    // Tidak perlu setTimeout fallback di sini jika window.location.href sudah digunakan.
-    // Jika Anda tetap ingin fallback ke API, pastikan itu tidak memblokir.
-    // Namun, untuk kasus ini, window.location.href seharusnya cukup.
-
+    window.location.href = waLink; // langsung di-trigger
   } else if (/Macintosh/i.test(userAgent)) {
-    // MacBook → buka WhatsApp Web di tab baru
     waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
     window.open(waLink, "_blank");
-
   } else if (/Android/i.test(userAgent)) {
-    // Android → buka WhatsApp App di tab baru
     waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
     window.open(waLink, "_blank");
-
   } else {
-    // Default → buka WhatsApp Web di tab baru
     waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
     window.open(waLink, "_blank");
   }
 
-  // --- Kirim ke Spreadsheet (Asinkron, tidak memblokir navigasi WhatsApp) ---
-  // Ini akan berjalan di latar belakang setelah navigasi WhatsApp dipicu.
-  const formData = new FormData();
-  formData.append("Nama", nama);
-  formData.append("Alamat", alamat);
-  formData.append("Telepon", userPhone);
-  formData.append("Produk", productList);
+  // === Async save to Spreadsheet ===
+  setTimeout(async () => {
+    try {
+      const formData = new FormData();
+      formData.append("Nama", nama);
+      formData.append("Alamat", alamat);
+      formData.append("Telepon", userPhone);
+      formData.append("Produk", productList);
 
-  try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbyAEo_Jum3NkJpAruYXUOo7oBB5RjBVKs21-1A10rLcmksQnRvffTSYt5eZX0SsZcHezQ/exec", {
-      method: "POST",
-      body: formData
-    });
-    const data = await res.json();
-
-    if (data.result === "success") {
-      console.log("Data tersimpan di baris:", data.row);
-      // Opsional: Tampilkan pesan sukses ke pengguna jika Anda mau
-      // alert("Pesanan berhasil dikirim dan data disimpan!");
-    } else {
-      console.error("Gagal simpan:", data.error);
-      // Opsional: Tampilkan pesan error ke pengguna
-      // alert("Terjadi kesalahan saat menyimpan data: " + data.error);
+      const res = await fetch("https://script.google.com/macros/s/AKfycbyAEo_Jum3NkJpAruYXUOo7oBB5RjBVKs21-1A10rLcmksQnRvffTSYt5eZX0SsZcHezQ/exec", {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      console.log("Spreadsheet Response:", data);
+    } catch (error) {
+      console.error("Spreadsheet error:", error);
     }
-  } catch (error) {
-    console.error("Spreadsheet error:", error);
-    // Opsional: Tampilkan pesan error ke pengguna
-    // alert("Gagal mengirim ke Spreadsheet: " + error);
-  }
+  });
 
   // --- Reset keranjang dan form setelah semua proses dimulai ---
-  // Ini bisa dilakukan segera setelah navigasi WhatsApp dipicu,
-  // karena pengiriman ke Spreadsheet sudah berjalan di latar belakang.
   cartPopup.querySelector(".cart-popup-box").classList.remove("show");
   setTimeout(() => {
     cartPopup.classList.remove("show");
@@ -530,8 +532,7 @@ cartForm.addEventListener("submit", async (e) => {
   cart = [];
   updateCartUI();
   cartForm.reset();
-});
-
+  }, 500);
 });
 </script>
 </body>
