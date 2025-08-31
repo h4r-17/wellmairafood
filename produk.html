@@ -352,7 +352,7 @@
   const cartForm = document.getElementById("cartForm");
   let cart = [];
 
- function updateCartUI() {
+function updateCartUI() {
   const cartItemsWrapper = document.getElementById("cartItems");
 
   if (cart.length === 0) {
@@ -371,7 +371,7 @@
           <input 
             type="number"
             value="${item.qty}"
-            min="1"
+            min="0"
             step="1"
             maxlength="4"
             pattern="[0-9]*"
@@ -388,47 +388,45 @@
   cartItemsWrapper.style.maxHeight = cart.length > 4 ? "300px" : "none";
 }
 
-// Fungsi validasi untuk input qty
+// Fungsi validasi: mengizinkan 0, tapi tetap angka & maksimal 4 digit
 window.validateQty = function(input, index) {
-  
-  // Hapus semua karakter non-angka
+  // Hanya izinkan angka
   input.value = input.value.replace(/[^0-9]/g, '');
 
-    // Jika kosong, nol, atau bukan angka, set ke 1
-  if (!qty || qty < 1) {
-    qty = 1;
-  }
-
-  // Batasi maksimum 4 digit
+  // Batasi panjang ke 4 digit
   if (input.value.length > 4) {
     input.value = input.value.slice(0, 4);
   }
 
-  let qty = parseInt(input.value);
-
-  // Update input dan array cart
-  input.value = qty;
-  cart[index].qty = qty;
+  // Update cart sementara (boleh 0 di sini)
+  cart[index].qty = parseInt(input.value) || 0;
 };
 
   // Tombol tambah produk
   document.querySelectorAll(".add-to-cart").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const product = btn.getAttribute("data-produk");
-      const existingItem = cart.find(item => item.name === product);
+btn.addEventListener("click", () => {
+  const product = btn.getAttribute("data-produk");
+  const existingItem = cart.find(item => item.name === product);
 
-      if (existingItem) {
-        existingItem.qty += 1;
-      } else {
-        cart.push({ name: product, qty: 1 });
-      }
-      updateCartUI();
+  if (existingItem) {
+    existingItem.qty += 1;
+  } else {
+    cart.push({ name: product, qty: 1 });
+  }
 
-      cartPopup.classList.add("show");
-      setTimeout(() => {
-        cartPopup.querySelector(".cart-popup-box").classList.add("show");
-      }, 10);
-    });
+  // Normalisasi qty yang 0 menjadi 1 setiap kali popup dibuka
+  cart = cart.map(item => ({
+    ...item,
+    qty: item.qty < 1 ? 1 : item.qty
+  }));
+
+  updateCartUI();
+
+  cartPopup.classList.add("show");
+  setTimeout(() => {
+    cartPopup.querySelector(".cart-popup-box").classList.add("show");
+  }, 10);
+});
   });
 
   // Quantity controls
@@ -471,10 +469,24 @@ cartForm.addEventListener("submit", async (e) => {
   const lang = localStorage.getItem("lang") || "id";
   const translations = await loadTranslations();
 
-  if (cart.length === 0) {
-    alert(lang === "id" ? "Tambahkan produk terlebih dahulu!" : "Add products first!");
-    return;
-  }
+  // Cek apakah keranjang kosong
+if (cart.length === 0) {
+  alert(lang === "id" ? "Tambahkan produk terlebih dahulu!" : "Add products first!");
+  return;
+}
+
+// Cek apakah ada produk dengan qty 0
+const hasZeroQty = cart.some(item => item.qty < 1);
+if (hasZeroQty) {
+  alert(lang === "id" ? "Tambahkan produk terlebih dahulu!" : "Add products first!");
+  return;
+}
+
+  // Normalisasi qty: jika ada produk dengan qty 0, ubah menjadi 1
+cart = cart.map(item => ({
+  ...item,
+  qty: item.qty < 1 ? 1 : item.qty
+}));
 
   const nama = document.getElementById("nama").value.trim();
   const userPhone = document.getElementById("userPhone").value.trim();
