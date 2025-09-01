@@ -526,7 +526,7 @@ cart = cart.map(item => ({
       formData.append("Telepon", userPhone);
       formData.append("Produk", productList);
 
-      const res = await fetch("https://script.google.com/macros/s/AKfycbyAEo_Jum3NkJpAruYXUOo7oBB5RjBVKs21-1A10rLcmksQnRvffTSYt5eZX0SsZcHezQ/exec", {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbw54iRAjtKC0mS0nUOtP1CBrvggoTkx1L1EnoCGw-bl-kNP-icE91HH-u2nXxwseaS2DQ/exec", {
         method: "POST",
         body: formData
       });
