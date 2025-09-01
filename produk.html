@@ -289,7 +289,7 @@
         <div id="cartItems"></div>
         <form id="cartForm" class="form-group">
             <input type="text" id="nama" name="nama" data-i18n-placeholder="cart_name_placeholder" placeholder="Nama Lengkap" minlength="3" required>
-            <input type="text" id="userPhone" name="userPhone" data-i18n-placeholder="cart_phone_placeholder" placeholder="Nomor Telepon" minlength="10" maxlength="13" pattern="[0-9]*" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+            <input type="text" id="userPhone" name="userPhone" data-i18n-placeholder="cart_phone_placeholder" placeholder="Nomor Telepon" maxlength="13" pattern="[0-9]{10,13}" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
             <textarea id="alamat" name="alamat" data-i18n-placeholder="cart_address_placeholder" placeholder="Alamat Lengkap" rows="3" minlength="5" style="resize: none;"></textarea>
             <button type="submit" class="submit-btn" data-i18n="cart_submit">Kirim Pesanan</button>
             <button type="button" id="closeCart" class="submit-btn" style="background:#f44336; margin-top:10px;" data-i18n="cart_close">Tutup</button>
@@ -354,12 +354,18 @@
 
 function updateCartUI() {
   const cartItemsWrapper = document.getElementById("cartItems");
+// Ambil bahasa dari localStorage, default ke 'id'
+const lang = localStorage.getItem("lang") || "id";
 
-  if (cart.length === 0) {
-    cartItemsWrapper.innerHTML = "<p style='text-align:center; color:#777;'>Keranjang kosong.</p>";
-    cartItemsWrapper.style.maxHeight = "none";
-    return;
-  }
+if (cart.length === 0) {
+  cartItemsWrapper.innerHTML = `
+    <p style="text-align:center; color:#777;">
+      ${lang === "id" ? "Keranjang kosong." : "Your cart is empty."}
+    </p>
+  `;
+  cartItemsWrapper.style.maxHeight = "none";
+  return;
+}
 
   // Render produk ke dalam keranjang
   cartItemsWrapper.innerHTML = cart
@@ -390,16 +396,22 @@ function updateCartUI() {
 
 // Fungsi validasi: mengizinkan 0, tapi tetap angka & maksimal 4 digit
 window.validateQty = function(input, index) {
-  // Hanya izinkan angka
+  // Hapus semua karakter non-angka
   input.value = input.value.replace(/[^0-9]/g, '');
 
-  // Batasi panjang ke 4 digit
+  // Jika input kosong (misalnya user menghapus angka lama), set ke 0 sementara
+  if (input.value === '') {
+    cart[index].qty = 0;
+    return;
+  }
+
+  // Batasi panjang maksimal ke 4 digit
   if (input.value.length > 4) {
     input.value = input.value.slice(0, 4);
   }
 
-  // Update cart sementara (boleh 0 di sini)
-  cart[index].qty = parseInt(input.value) || 0;
+  // Update array cart
+  cart[index].qty = parseInt(input.value, 10);
 };
 
   // Tombol tambah produk
