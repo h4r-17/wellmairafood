@@ -521,10 +521,10 @@ cart = cart.map(item => ({
   setTimeout(async () => {
     try {
       const formData = new FormData();
-      formData.append("Nama", nama);
-      formData.append("Alamat", alamat);
-      formData.append("Telepon", userPhone);
-      formData.append("Produk", productList);
+      formData.append("nama", nama);
+      formData.append("alamat", alamat);
+      formData.append("telepon", userPhone);
+      formData.append("produk", productList);
 
       const res = await fetch("https://script.google.com/macros/s/AKfycbw54iRAjtKC0mS0nUOtP1CBrvggoTkx1L1EnoCGw-bl-kNP-icE91HH-u2nXxwseaS2DQ/exec", {
         method: "POST",
