@@ -297,12 +297,26 @@
         </div>
     </div>
 
+    <!-- Overlay Loading -->
+<div id="loading-overlay">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <p class="loading-text" id="loadingText">Loading...</p>
+  </div>
+</div>
+
+<!-- Popup Notifikasi -->
+<div id="success-popup">
+  <div class="popup-box success">
+    <p id="successMessage"></p>
+    <button id="goWhatsappBtn" data-i18n-placeholder="tombol-wa">Lanjutkan ke WhatsApp</button>
+  </div>
+</div>
 
     <script src="addition.js" defer></script>
     <script>
 
     // translate bahasa
-
     async function loadTranslations() {
     const res = await fetch("lang.json");
     return await res.json();
@@ -481,83 +495,98 @@ cartForm.addEventListener("submit", async (e) => {
   const lang = localStorage.getItem("lang") || "id";
   const translations = await loadTranslations();
 
-  // Cek apakah keranjang kosong
-if (cart.length === 0) {
-  alert(lang === "id" ? "Tambahkan produk terlebih dahulu!" : "Add products first!");
-  return;
-}
+  if (cart.length === 0 || cart.some(item => item.qty < 1)) {
+    alert(lang === "id" ? "Tambahkan produk terlebih dahulu!" : "Add products first!");
+    return;
+  }
 
-// Cek apakah ada produk dengan qty 0
-const hasZeroQty = cart.some(item => item.qty < 1);
-if (hasZeroQty) {
-  alert(lang === "id" ? "Tambahkan produk terlebih dahulu!" : "Add products first!");
-  return;
-}
-
-  // Normalisasi qty: jika ada produk dengan qty 0, ubah menjadi 1
-cart = cart.map(item => ({
-  ...item,
-  qty: item.qty < 1 ? 1 : item.qty
-}));
+  cart = cart.map(item => ({ ...item, qty: item.qty < 1 ? 1 : item.qty }));
 
   const nama = document.getElementById("nama").value.trim();
   const userPhone = document.getElementById("userPhone").value.trim();
   const alamat = document.getElementById("alamat").value.trim();
-  const shopNumber = "6281122332222"; // Nomor WhatsApp toko
+  const shopNumber = "6281122332222";
 
   const productList = cart.map(item => `* ${item.name}: ${item.qty}`).join("\n");
   const message = lang === "id"
     ? `Halo, saya ingin memesan produk berikut:\n\n${productList}\n\nNama: ${nama}\nAlamat: ${alamat}`
     : `Hello, I would like to order the following products:\n\n${productList}\n\nName: ${nama}\nAddress: ${alamat}`;
-
   const encodedMessage = encodeURIComponent(message);
+
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  let waLink = "";
+  let waLink = /iPhone|iPad|iPod|Android/i.test(userAgent)
+    ? `https://wa.me/${shopNumber}?text=${encodedMessage}`
+    : `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
 
-  // === WA navigation ===
-  if (/iPhone|iPad|iPod/i.test(userAgent)) {
-    waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
-    window.location.href = waLink; // langsung di-trigger
-  } else if (/Macintosh/i.test(userAgent)) {
-    waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
-    window.open(waLink, "_blank");
-  } else if (/Android/i.test(userAgent)) {
-    waLink = `https://wa.me/${shopNumber}?text=${encodedMessage}`;
-    window.open(waLink, "_blank");
-  } else {
-    waLink = `https://web.whatsapp.com/send?phone=${shopNumber}&text=${encodedMessage}`;
-    window.open(waLink, "_blank");
-  }
+  // Tampilkan overlay loading
+  const loadingOverlay = document.getElementById("loading-overlay");
+  const loadingText = document.getElementById("loadingText");
+  loadingText.textContent = lang === "id" ? "Memproses pesanan" : "Processing order";
+  loadingOverlay.classList.add("show");
 
-  // === Async save to Spreadsheet ===
-  setTimeout(async () => {
-    try {
-      const formData = new FormData();
-      formData.append("nama", nama);
-      formData.append("alamat", alamat);
-      formData.append("telepon", userPhone);
-      formData.append("produk", productList);
+  try {
+    const formData = new FormData();
+    formData.append("nama", nama);
+    formData.append("alamat", alamat);
+    formData.append("telepon", userPhone);
+    formData.append("produk", productList);
 
-      const res = await fetch("https://script.google.com/macros/s/AKfycbwhgmrh97XFN2KGI4QU241G3zb7BzBmfHKd-xJvvRTdvyWPR2GsbXTKcR7sJUR05P2wCA/exec", {
-        method: "POST",
-        body: formData
-      });
-      const data = await res.json();
-      console.log("Spreadsheet Response:", data);
-    } catch (error) {
-      console.error("Spreadsheet error:", error);
+    const res = await fetch("https://script.google.com/macros/s/AKfycbwhgmrh97XFN2KGI4QU241G3zb7BzBmfHKd-xJvvRTdvyWPR2GsbXTKcR7sJUR05P2wCA/exec", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+  if (data.result === "success" || res.ok) {
+  console.log("Data berhasil disimpan:", data);
+
+  // Sembunyikan overlay loading
+  loadingOverlay.classList.remove("show");
+
+  // Tampilkan popup sukses
+  const lang = localStorage.getItem("lang") || "id";
+  const translations = await loadTranslations();
+  const successPopup = document.getElementById("success-popup");
+  const successMessage = document.getElementById("successMessage");
+  const goWhatsappBtn = document.getElementById("goWhatsappBtn");
+  if (translations[lang] && translations[lang]["tombol-wa"]) {
+  goWhatsappBtn.textContent = translations[lang]["tombol-wa"];
+}
+
+  successMessage.textContent = lang === "id"
+    ? "Melanjutkan pemesanan lewat WhatsApp"
+    : "Continue ordering via WhatsApp";
+
+  // Tambahkan class show agar popup terlihat
+  successPopup.classList.add("show");
+  
+
+  // Event klik tombol WhatsApp
+  goWhatsappBtn.onclick = () => {
+    if (/iPhone|iPad|iPod|Android/i.test(userAgent)) {
+      window.location.href = waLink;
+    } else {
+      window.open(waLink, "_blank");
     }
-  });
-
-  // --- Reset keranjang dan form setelah semua proses dimulai ---
-  cartPopup.querySelector(".cart-popup-box").classList.remove("show");
-  setTimeout(() => {
-    cartPopup.classList.remove("show");
-  }, 300);
-  cart = [];
-  updateCartUI();
-  cartForm.reset();
-  }, 500);
+    successPopup.classList.remove("show");
+  };
+}
+ else {
+      throw new Error("Spreadsheet response error");
+    }
+   } catch (error) {
+    console.error("Spreadsheet error:", error);
+    alert(lang === "id" ? "Gagal menyimpan data, silakan coba lagi!" : "Failed to save data, please try again!");
+    loadingOverlay.classList.remove("show");
+  } finally {
+    // Reset form dan keranjang
+    cartPopup.querySelector(".cart-popup-box").classList.remove("show");
+    setTimeout(() => cartPopup.classList.remove("show"), 300);
+    cart = [];
+    updateCartUI();
+    cartForm.reset();
+  }
+});
 });
 </script>
 </body>

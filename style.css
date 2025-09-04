@@ -1830,7 +1830,50 @@ ul li i {
   }
 }
 
+/* ===========================
+   POPUP NOTIFIKASI
+   =========================== */
+/* Overlay Gelap */
+#success-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 10000;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
+#success-popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#success-popup.show .popup-box {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Tombol */
+.popup-box button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #4CAF50;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.popup-box button:hover {
+  background: #45a049;
+}
 
 
 

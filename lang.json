@@ -23,8 +23,8 @@
     "tombol-kirim": "Kirim Pesan",
 
     "loading": "Mohon Tunggu Sebentar",
-    "success": "Terimakasih ya! ✅",
-    "error": "Waduh gagal. Silakan coba lagi! ❌",
+    "success": "Terimakasih ya!",
+    "error": "Waduh gagal. Silakan coba lagi!",
 
     "cari-kami": "Cari Kami Disini",
     "kontak-kami": "Hubungi Kami",
@@ -88,6 +88,7 @@
     "cart_submit": "Kirim Pesanan",
     "cart_close": "Tutup",
     "whatsapp_message": "Halo, saya ingin memesan produk berikut:",
+    "tombol-wa": "Lanjutkan",
 
    "dimana-beli": "Dimana beli produknya?",
    "footer_text": "© 2025 Well Maira Food."
@@ -118,8 +119,8 @@
     "tombol-kirim": "Submit",
 
     "loading": "Please Wait",
-    "success": "Thank you. Have a nice day! ✅",
-    "error": "Sorry. Please try again! ❌",
+    "success": "Thank you. Have a nice day!",
+    "error": "Sorry. Please try again!",
 
     "cari-kami": "Find Us On",
     "kontak-kami": "Contact Us",
@@ -183,6 +184,7 @@
    "cart_submit": "Send Order",
    "cart_close": "Close",
    "whatsapp_message": "Hello, I would like to order the following products:",
+   "tombol-wa": "Here",
 
    "dimana-beli": "Where to Buy Maira?",
    "footer_text": "© 2025 Well Maira Food."
